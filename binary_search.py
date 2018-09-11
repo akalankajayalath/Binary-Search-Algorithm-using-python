@@ -6,25 +6,28 @@ Functions:
     binary_search(list_to_find_the_number,Number)
 """
 
-#TO DO
-    #pylinting - done
-    #perfomance,time complexity
-    #pytest: unit-testing
-    #random number list - done
-    #efficiency of sort function
 import random
+import time
 
-#S = input("Enter your list(seperate numbers with spaces)")
-#SEARCHNUMLIST = list(map(int, S.split())) #splitting numbers and creating list
-SEARCHNUMLIST = random.sample(range(100000), 10)
-SEARCHNUMLIST.sort()
-print(SEARCHNUMLIST)
+START_TIME = time.time()
 
-#search function using binary search algorithm
+def sort_list(length):
+
+    #function docstring
+    """creating the list as per the users required length"""
+    generate_list = []
+    for j in range(length):
+        generate_list.append(random.randint(0, 100000))
+    #generate_list = random.sample(range(100000), length)
+    generate_list.sort()
+    return generate_list
+
 def binary_search_algo(s_list, s_number):
 
     #function docstring
-    """search for the given number in a list"""
+    """search for the given number in a list
+        function is only accepting sorted lists
+    """
 
     first = 0
     last = len(s_list) - 1
@@ -35,7 +38,6 @@ def binary_search_algo(s_list, s_number):
 
         if s_list[mid_value] == s_number:
             num_found = True
-            #return True;
             break
         else:
             if s_number < s_list[mid_value]:
@@ -45,17 +47,27 @@ def binary_search_algo(s_list, s_number):
 
     return num_found
 
-parsed_num = False
-while not parsed:
-    try:
-        SEARCHNUM = int(input("Enter a Number to Search"))
-        parsed_num = True
-    except ValueError:
-        print("Invalid Value")
+print("--- %s seconds ---" % (time.time() - START_TIME))
 
-RETVALUE = binary_search_algo(SEARCHNUMLIST, SEARCHNUM)
+def main():
+    """this is the main function that invokes when the program begin"""
+    input_length = int(input("Enter list length"))
+    search_list = sort_list(input_length)
+    print(search_list)
 
-if RETVALUE:
-    print("Number is Found")
-else:
-    print("Number is not Found")
+    parsed_num = False
+    while not parsed_num:
+        try:
+            search_num = int(input("Enter a Number to Search"))
+            parsed_num = True
+        except ValueError:
+            print("Invalid Value")
+
+    ret_value = binary_search_algo(search_list, search_num)
+    if ret_value:
+        print("Number is Found")
+    else:
+        print("Number is not Found")
+
+if __name__ == "__main__":
+    main()
