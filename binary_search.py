@@ -1,5 +1,5 @@
-#module docstring
 """
+#module docstring
 This program accepts a list from user and search for a given number
 uses binary search algorithm.
 Functions:
@@ -9,24 +9,37 @@ Functions:
 import random
 import time
 
-START_TIME = time.time()
-
 def sort_list(length):
+    """
+    inputs:
+        @length:
 
+    outputs:
+
+    Exceptions:
+   
     #function docstring
-    """creating the list as per the users required length"""
+    creating the list as per the users required length
+    """
+    
+    START_TIME = time.time()
     generate_list = []
-    for j in range(length):
+    for _ in range(length):
         generate_list.append(random.randint(0, 100000))
-    #generate_list = random.sample(range(100000), length)
+
     generate_list.sort()
+    print("--- %s seconds ---" % (time.time() - START_TIME))
     return generate_list
+
+
+
 
 def binary_search_algo(s_list, s_number):
 
+    """
     #function docstring
-    """search for the given number in a list
-        function is only accepting sorted lists
+    search for the given number in a list
+    function is only accepting sorted lists
     """
 
     first = 0
@@ -47,19 +60,27 @@ def binary_search_algo(s_list, s_number):
 
     return num_found
 
-print("--- %s seconds ---" % (time.time() - START_TIME))
 
 def main():
-    """this is the main function that invokes when the program begin"""
-    input_length = int(input("Enter list length"))
-    search_list = sort_list(input_length)
-    print(search_list)
 
-    parsed_num = False
-    while not parsed_num:
+    """this is the main function that invokes when the program begin"""
+
+    parsed_num2 = False
+    while not parsed_num2:
+        try:
+            input_length = int(input("Enter list length"))
+            parsed_num2 = True
+        except ValueError:
+            print("Invalid Value")
+
+    search_list = sort_list(input_length)
+    #print(search_list)
+
+    parsed_num1 = False
+    while not parsed_num1:
         try:
             search_num = int(input("Enter a Number to Search"))
-            parsed_num = True
+            parsed_num1 = True
         except ValueError:
             print("Invalid Value")
 
@@ -68,6 +89,7 @@ def main():
         print("Number is Found")
     else:
         print("Number is not Found")
+
 
 if __name__ == "__main__":
     main()
