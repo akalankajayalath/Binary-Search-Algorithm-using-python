@@ -7,28 +7,24 @@ Functions:
 """
 
 import random
-import time
 
 def sort_list(length):
     """
     inputs:
-        @length:
+        @length:length of the list that want to be generated
 
     outputs:
+        @generate_list:list that generated
 
-    Exceptions:
-   
     #function docstring
     creating the list as per the users required length
     """
-    
-    START_TIME = time.time()
+
     generate_list = []
     for _ in range(length):
         generate_list.append(random.randint(0, 100000))
 
     generate_list.sort()
-    print("--- %s seconds ---" % (time.time() - START_TIME))
     return generate_list
 
 
@@ -38,6 +34,12 @@ def binary_search_algo(s_list, s_number):
 
     """
     #function docstring
+    inputs:
+        @s_list:list that want to be used
+        @s_number:Number that should be searched
+
+    outputs:
+        @num_found:True or False
     search for the given number in a list
     function is only accepting sorted lists
     """
@@ -61,30 +63,37 @@ def binary_search_algo(s_list, s_number):
     return num_found
 
 
+def get_inputs(print_msg):
+
+    """This function can be used to get inputs anytime
+    inputs:
+        @print_msg:msg that should be printed to user
+    outputs:
+        @input_val:value that user entered
+    """
+
+    while True:
+        try:
+            input_val = int(input(print_msg))
+            break
+        except ValueError:
+            print("Invalid Value")
+    return input_val
+
+
 def main():
 
     """this is the main function that invokes when the program begin"""
 
-    parsed_num2 = False
-    while not parsed_num2:
-        try:
-            input_length = int(input("Enter list length"))
-            parsed_num2 = True
-        except ValueError:
-            print("Invalid Value")
+    input_length = get_inputs("Enter list length")
 
     search_list = sort_list(input_length)
-    #print(search_list)
+    print(search_list)
 
-    parsed_num1 = False
-    while not parsed_num1:
-        try:
-            search_num = int(input("Enter a Number to Search"))
-            parsed_num1 = True
-        except ValueError:
-            print("Invalid Value")
+    search_num = get_inputs("Enter a Number to search in the list")
 
     ret_value = binary_search_algo(search_list, search_num)
+
     if ret_value:
         print("Number is Found")
     else:
